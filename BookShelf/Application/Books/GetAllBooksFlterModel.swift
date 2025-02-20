@@ -4,7 +4,7 @@ public struct GetAllBooksFilterModel {
     public let authorSubstring: String?
     public let publicationYears: Set<Int?>
     public let genres: Set<BookGenre>
-    
+
     init(
         bookIds: Set<BookId> = [],
         titleSubstring: String? = nil,

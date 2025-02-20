@@ -2,11 +2,11 @@ import Foundation
 
 public class InMemonyBooksRepository: BooksRepository {
     private let context: InMemoryDatabaseContext
-    
+
     init(context: InMemoryDatabaseContext) {
         self.context = context
     }
-    
+
     public func add(_ book: Book) -> Book {
         let bookToAdd = book.with(id: BookId(UUID().uuidString))
 
@@ -14,19 +14,19 @@ public class InMemonyBooksRepository: BooksRepository {
 
         return bookToAdd
     }
-    
+
     public func remove(_ id: BookId) -> Book? {
         if let index = self.context.books.firstIndex(where: { $0.id == id }) {
             let bookToRemove = self.context.books[index]
-            
+
             self.context.books.remove(at: index)
-            
+
             return bookToRemove
         }
-        
+
         return nil
     }
-    
+
     public func getAll(filter: GetAllBooksFilterModel, pagination: PaginationModel) -> [Book] {
         return Array(
             self.context.books
@@ -35,7 +35,7 @@ public class InMemonyBooksRepository: BooksRepository {
                 .dropFirst(pagination.cursor)
                 .prefix(pagination.limit))
     }
-    
+
     private func getAllPredicate(book: Book, filter: GetAllBooksFilterModel) -> Bool {
         return (filter.bookIds.isEmpty || filter.bookIds.contains(book.id))
         && (filter.titleSubstring == nil || book.title.contains(filter.titleSubstring!))
