@@ -1,6 +1,6 @@
 import Foundation
 
-public class Book: CustomStringConvertible {
+public class Book {
     let id: BookId
     let title: String
     let author: String
@@ -20,7 +20,9 @@ public class Book: CustomStringConvertible {
         self.publicationYear = publicationYear
         self.genre = genre
     }
-    
+}
+
+extension Book: CustomStringConvertible {
     public var description: String {
         return """
 Book {
