@@ -1,11 +1,11 @@
-//
-//  main.swift
-//  BookShelf
-//
-//  Created by nzaguta on 15.02.2025.
-//
-
 import Foundation
+import Swinject
 
-print("Hello, World!")
+let container = Container()
+    .registerInMemoryPersistense()
+    .registerServices()
+    .registerCli()
 
+let worker = container.resolve(Worker.self)
+
+worker?.run()
